@@ -1,0 +1,17 @@
+﻿<Application x:Class="EDSLPrototype.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:EDSLPrototype"
+             StartupUri="MainWindow.xaml"
+    xmlns:System="clr-namespace:System;assembly=System.Runtime"
+    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
+    <Application.Resources>
+        <System:Double x:Key="StandardFontSize">24</System:Double>
+        <System:Double x:Key="ResultTeamFontSize">16</System:Double>
+        <Style x:Key="Button" TargetType="Button">
+            <Setter Property="Background" Value="#FFD5D5D5"/>
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="FontSize" Value="{DynamicResource StandardFontSize}"/>
+        </Style>
+    </Application.Resources>
+</Application>
