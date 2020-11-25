@@ -7,8 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Reports\Draw.pdf" />
+    <None Remove="Reports\Ladder.pdf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Reports\Draw.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Ladder.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="DataSources\" />
-    <Folder Include="Properties\" />
+    <Folder Include="Properties\DataSources\" />
   </ItemGroup>
 
 </Project>

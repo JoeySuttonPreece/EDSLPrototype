@@ -28,6 +28,7 @@
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="60"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="1"/>
                 <RowDefinition Height="40"/>
@@ -55,19 +56,84 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <Button Content="Create" Grid.Column="1" HorizontalAlignment="Right" Width="160" Grid.Row="1" Style="{DynamicResource Button}"/>
+            <Button Grid.Column="1" Content="Save" HorizontalAlignment="Right" Width="160" Grid.Row="1" Click="Button_Click_1">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource Button}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=SeasonSeasonSelect,Path=SelectedItem}" Value="{x:Null}"/>
+                                    <Condition Binding="{Binding ElementName=SeasonSeasonSelect,Path=Text}" Value=""/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
             <TextBlock Text="Start Date" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" HorizontalAlignment="Left"/>
-            <TextBox Text="" Padding="20,0,0,0" TextWrapping="Wrap" Grid.Column="1" Margin="0,0,430,0" HorizontalAlignment="Right" Width="280" Grid.Row="3" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" BorderBrush="Black" />
-            <Rectangle Grid.Column="1" Grid.Row="3" Fill="Black" Width="1" HorizontalAlignment="Center"/>
-            <TextBlock Text="Round Count" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" HorizontalAlignment="Left" Margin="430,0,0,0"/>
-            <TextBox Text="" Padding="20,0,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Right" Width="250" Grid.Row="3" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" BorderBrush="Black" />
-            <Button Content="Dates" Padding="20,0,0,0" HorizontalContentAlignment="Left" Grid.Column="1" Grid.Row="5" FontSize="{DynamicResource StandardFontSize}" BorderBrush="Black" Background="White"/>
-            <Rectangle Grid.Column="1" Grid.Row="7" Fill="Black"/>
-            <ComboBox x:Name="SeasonDivisionSelect" Padding="20,0,0,0" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left" Width="660" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" IsEditable="True">
-                <ComboBoxItem Content="EDSL 2020-21" />
-                <ComboBoxItem Content="EDSL 2021-22" />
+            <TextBox Text="" Padding="20,0,0,0" TextWrapping="Wrap" Grid.Column="1" Margin="0,0,430,0" HorizontalAlignment="Right" Width="280" Grid.Row="3" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" BorderBrush="Black" >
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=SeasonSeasonSelect,Path=SelectedItem}" Value="{x:Null}"/>
+                                    <Condition Binding="{Binding ElementName=SeasonSeasonSelect,Path=Text}" Value=""/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" Value="#F4F4F4"/>
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <Rectangle Grid.Column="1" Grid.Row="3" Fill="Black" Width="1" HorizontalAlignment="Center" d:IsHidden="True"/>
+            <TextBlock Text="No. Rounds" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" HorizontalAlignment="Left" Margin="430,0,0,0" />
+            <TextBox Text="" Padding="20,0,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Right" Width="280" Grid.Row="3" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" BorderBrush="Black">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=SeasonSeasonSelect,Path=SelectedItem}" Value="{x:Null}"/>
+                                    <Condition Binding="{Binding ElementName=SeasonSeasonSelect,Path=Text}" Value=""/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" Value="#F4F4F4"/>
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <Button Content="Dates" Padding="20,0,0,0" HorizontalContentAlignment="Left" Grid.Column="1" Grid.Row="5" FontSize="{DynamicResource StandardFontSize}" BorderBrush="Black" Background="White" Click="Dates_Click">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=SeasonSeasonSelect,Path=SelectedItem}" Value="{x:Null}"/>
+                                    <Condition Binding="{Binding ElementName=SeasonSeasonSelect,Path=Text}" Value=""/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Rectangle Grid.Column="1" Grid.Row="8" Fill="Black"/>
+            <ComboBox x:Name="SeasonDivisionSelect" Padding="20,0,0,0" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Left" Width="660" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" IsEnabled="False">
+                <ComboBoxItem Content="A" />
+                <ComboBoxItem Content="B" />
+                <ComboBoxItem Content="C" />
             </ComboBox>
-            <TextBlock Grid.Column="1" Grid.Row="9" Text="Pick division..." IsHitTestVisible="False" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="#FF7F7F7F">
+            <TextBlock Grid.Column="1" Grid.Row="10" Text="Pick division..." IsHitTestVisible="False" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="#FF7F7F7F">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="Visibility" Value="Hidden"/>
@@ -83,7 +149,21 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <Button Content="Create Draw" Grid.Column="1" HorizontalAlignment="Left" Width="160" Grid.Row="9" Style="{DynamicResource Button}" Margin="680,0,0,0"/>
+            <Button x:Name="CreateDraw" Content="Create Draw" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Right" Width="160" Click="Button_Click">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource Button}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=SeasonDivisionSelect,Path=SelectedItem}" Value="{x:Null}"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
     </Grid>
 </Page>

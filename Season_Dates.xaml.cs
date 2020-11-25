@@ -14,24 +14,21 @@ using System.Windows.Shapes;
 namespace EDSLPrototype
 {
     /// <summary>
-    /// Interaction logic for Result.xaml
+    /// Interaction logic for Season_Dates.xaml
     /// </summary>
-    public partial class Result : Page
+    public partial class Season_Dates : Page
     {
-        public Result()
+        MainWindow window;
+
+        public Season_Dates(Window _window)
         {
             InitializeComponent();
-            DataContext = this;
+            window = (MainWindow)_window;
         }
 
-        private void CreateLadder_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ViewLadder.IsEnabled = true;
-        }
-
-        private void ViewLadder_Click(object sender, RoutedEventArgs e)
-        {
-            new LadderWindow().Show();
+            window.Main.Content = window.seasonPage;
         }
     }
 }

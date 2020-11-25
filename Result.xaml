@@ -38,7 +38,7 @@
                     <ColumnDefinition Width="40"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <ComboBox x:Name="ResultSeasonSelect" Grid.Column="0" Padding="20,0,0,0" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" IsEditable="True">
+                <ComboBox x:Name="ResultSeasonSelect" Grid.Column="0" Padding="20,0,0,0" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" IsEditable="True" SelectedIndex="0">
                     <ComboBoxItem Content="EDSL 2020-21" />
                     <ComboBoxItem Content="EDSL 2021-22" />
                 </ComboBox>
@@ -58,9 +58,10 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <ComboBox x:Name="ResultDivisionSelect" Grid.Column="2" Padding="20,0,0,0" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" IsEditable="True">
-                    <ComboBoxItem Content="EDSL 2020-21" />
-                    <ComboBoxItem Content="EDSL 2021-22" />
+                <ComboBox x:Name="ResultDivisionSelect" Grid.Column="2" Padding="20,0,0,0" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" IsEditable="True" SelectedIndex="0">
+                    <ComboBoxItem Content="A" />
+                    <ComboBoxItem Content="B" />
+                    <ComboBoxItem Content="C" />
                 </ComboBox>
                 <TextBlock Grid.Column="2" Text="Division" IsHitTestVisible="False" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="#FF7F7F7F">
                     <TextBlock.Style>
@@ -78,9 +79,23 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <ComboBox x:Name="ResultRoundSelect" Grid.Column="4" Padding="20,0,0,0" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" IsEditable="True">
-                    <ComboBoxItem Content="EDSL 2020-21" />
-                    <ComboBoxItem Content="EDSL 2021-22" />
+                <ComboBox x:Name="ResultRoundSelect" Grid.Column="4" Padding="20,0,0,0" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" IsEditable="True" SelectedIndex="1">
+                    <ComboBoxItem Content="1" />
+                    <ComboBoxItem Content="2" />
+                    <ComboBoxItem Content="3" />
+                    <ComboBoxItem Content="4" />
+                    <ComboBoxItem Content="5" />
+                    <ComboBoxItem Content="6" />
+                    <ComboBoxItem Content="7" />
+                    <ComboBoxItem Content="8" />
+                    <ComboBoxItem Content="9" />
+                    <ComboBoxItem Content="10" />
+                    <ComboBoxItem Content="11" />
+                    <ComboBoxItem Content="12" />
+                    <ComboBoxItem Content="13" />
+                    <ComboBoxItem Content="14" />
+                    <ComboBoxItem Content="15" />
+                    <ComboBoxItem Content="16" />
                 </ComboBox>
                 <TextBlock Grid.Column="4" Text="Round" IsHitTestVisible="False" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="#FF7F7F7F">
                     <TextBlock.Style>
@@ -109,14 +124,30 @@
                     <ColumnDefinition Width="40"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" Text="Date" TextWrapping="Wrap" VerticalContentAlignment="Center" Padding="20,0,0,0" BorderBrush="Black" FontSize="{DynamicResource StandardFontSize}" Foreground="#FF7F7F7F"/>
-                <Button Grid.Column="2" Content="Edit" Style="{DynamicResource Button}"/>
-                <Button Grid.Column="4" Content="Create Ladder" Style="{DynamicResource Button}"/>
-                <Button Grid.Column="6" Content="View Ladder" Style="{DynamicResource Button}"/>
+                <TextBox Grid.Column="0" Text="15/11/2020" TextWrapping="Wrap" VerticalContentAlignment="Center" Padding="20,0,0,0" BorderBrush="Black" FontSize="{DynamicResource StandardFontSize}" Foreground="#FF7F7F7F" IsEnabled="False"/>
+                <Button Grid.Column="2" Content="Save" Style="{DynamicResource Button}"/>
+                <Button Grid.Column="4" Content="Create Ladder" x:Name="CreateLadder" Click="CreateLadder_Click">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource Button}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding ElementName=H7,Path=Text}" Value="0"/>
+                                        <Condition Binding="{Binding ElementName=A7,Path=Text}" Value="2"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Grid.Column="6" Content="View Ladder" x:Name="ViewLadder" Style="{DynamicResource Button}" IsEnabled="False" Click="ViewLadder_Click"/>
             </Grid>
-            <Rectangle Grid.Column="1" Grid.Row="5" Stroke="Black"/>
             <Grid Grid.Column="1" Grid.Row="5">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="1"/>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="1"/>
                     <ColumnDefinition/>
@@ -137,40 +168,65 @@
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="1"/>
                     <RowDefinition Height="60"/>
+                    <RowDefinition Height="1"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="1"/>
+                    <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
-                <Rectangle Grid.Column="1" Grid.RowSpan="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=RowDefinitions.Count, Mode=OneWay}" Fill="#FF000000"/>
-                <Rectangle Grid.Column="3" Grid.RowSpan="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=RowDefinitions.Count, Mode=OneWay}" Fill="#FF000000"/>
-                <Rectangle Grid.Column="5" Grid.RowSpan="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=RowDefinitions.Count, Mode=OneWay}" Fill="#FF000000"/>
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="Home Team" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}"/>
-                <TextBlock Grid.Column="2" Grid.Row="0" Text="Home Goals" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}"/>
-                <TextBlock Grid.Column="4" Grid.Row="0" Text="Away Team" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}"/>
-                <TextBlock Grid.Column="6" Grid.Row="0" Text="Away Goals" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}"/>
-                <Rectangle Grid.Row="1" Grid.ColumnSpan="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=ColumnDefinitions.Count, Mode=OneWay}" Fill="#FF000000"/>
-                <TextBlock Grid.Column="0" Grid.Row="2" Text="MOUNT WAVERLEY-A" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
-                <TextBox Grid.Column="2" Grid.Row="2"  Text="4" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                <TextBlock Grid.Column="4" Grid.Row="2" Text="OAKLEIGH-A" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
-                <TextBox Grid.Column="6" Grid.Row="2" Text="1" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                <Rectangle Grid.Row="3" Grid.ColumnSpan="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=ColumnDefinitions.Count, Mode=OneWay}" Fill="#FF000000"/>
-                <TextBlock Grid.Column="0" Grid.Row="4" Text="SCORESBY-A" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
-                <TextBox Grid.Column="2" Grid.Row="4"  Text="4" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                <TextBlock Grid.Column="4" Grid.Row="4" Text="FERNTREE GULLY-A" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
-                <TextBox Grid.Column="6" Grid.Row="4" Text="4" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                <Rectangle Grid.Row="5" Grid.ColumnSpan="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=ColumnDefinitions.Count, Mode=OneWay}" Fill="#FF000000"/>
-                <TextBlock Grid.Column="0" Grid.Row="6" Text="MITCHAM-A" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
-                <TextBox Grid.Column="2" Grid.Row="6"  Text="1" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                <TextBlock Grid.Column="4" Grid.Row="6" Text="MURRUMBEENA-A" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
-                <TextBox Grid.Column="6" Grid.Row="6" Text="7" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                <Rectangle Grid.Row="7" Grid.ColumnSpan="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=ColumnDefinitions.Count, Mode=OneWay}" Fill="#FF000000"/>
-                <TextBlock Grid.Column="0" Grid.Row="8" Text="RINGWOOD-A" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
-                <TextBox Grid.Column="2" Grid.Row="8"  Text="" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                <TextBlock Grid.Column="4" Grid.Row="8" Text="BEACONSFIELD UPPER-A" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
-                <TextBox Grid.Column="6" Grid.Row="8" Text="" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                <Rectangle Grid.Row="9" Grid.ColumnSpan="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=ColumnDefinitions.Count, Mode=OneWay}" Fill="#FF000000"/>
-                <TextBlock Grid.Column="0" Grid.Row="10" Text="WONGA PARK-A" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
-                <TextBox Grid.Column="2" Grid.Row="10"  Text="" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                <TextBlock Grid.Column="4" Grid.Row="10" Text="BELGRAVE-A" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
-                <TextBox Grid.Column="6" Grid.Row="10" Text="" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                <Rectangle Grid.Column="0" Grid.Row="1" Grid.RowSpan="{Binding RowDefinitions.Count, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Grid.ColumnSpan="3" Fill="#FFEEEEEE"/>
+                <Rectangle Grid.Column="6" Grid.Row="1" Grid.RowSpan="{Binding RowDefinitions.Count, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Fill="#FFEEEEEE"/>
+                <Rectangle Grid.Column="1" Grid.RowSpan="{Binding RowDefinitions.Count, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Fill="#FF000000"/>
+                <Rectangle Grid.Column="3" Grid.RowSpan="{Binding RowDefinitions.Count, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Fill="#FF000000"/>
+                <Rectangle Grid.Column="5" Grid.RowSpan="{Binding RowDefinitions.Count, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Fill="#FF000000"/>
+                <Rectangle Grid.Column="7" Grid.RowSpan="{Binding RowDefinitions.Count, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Fill="#FF000000"/>
+                <TextBlock Grid.Column="2" Grid.Row="0" Text="Home Team" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}"/>
+                <TextBlock Grid.Column="4" Grid.Row="0" Text="Home Goals" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}"/>
+                <TextBlock Grid.Column="6" Grid.Row="0" Text="Away Team" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}"/>
+                <TextBlock Grid.Column="8" Grid.Row="0" Text="Away Goals" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}"/>
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="{Binding ColumnDefinitions.Count, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Fill="#FF000000"/>
+                <TextBlock Grid.Column="0" Grid.Row="2" Text="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}"/>
+                <TextBlock Grid.Column="2" Grid.Row="2" Text="OAKLEIGH-A" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
+                <TextBox Grid.Column="4" Grid.Row="2" x:Name="H1" Text="1" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                <TextBlock Grid.Column="6" Grid.Row="2" Text="WANTIRNA-A" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
+                <TextBox Grid.Column="8" Grid.Row="2" x:Name="A1" Text="0" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                <Rectangle Grid.Row="3" Grid.ColumnSpan="{Binding ColumnDefinitions.Count, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Fill="#FF000000"/>
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}"/>
+                <TextBlock Grid.Column="2" Grid.Row="4" Text="BYE" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
+                <TextBox Grid.Column="4" Grid.Row="4" x:Name="H2" Text="0" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                <TextBlock Grid.Column="6" Grid.Row="4" Text="FERNTREE GULLY-A" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
+                <TextBox Grid.Column="8" Grid.Row="4" x:Name="A2" Text="0" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                <Rectangle Grid.Row="5" Grid.ColumnSpan="{Binding ColumnDefinitions.Count, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Fill="#FF000000"/>
+                <TextBlock Grid.Column="0" Grid.Row="6" Text="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}"/>
+                <TextBlock Grid.Column="2" Grid.Row="6" Text="MURRUMBEENA-A" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
+                <TextBox Grid.Column="4" Grid.Row="6" x:Name="H3" Text="2" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                <TextBlock Grid.Column="6" Grid.Row="6" Text="MOUNT WAVERLEY-A" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
+                <TextBox Grid.Column="8" Grid.Row="6" x:Name="A3" Text="2" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                <Rectangle Grid.Row="7" Grid.ColumnSpan="{Binding ColumnDefinitions.Count, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Fill="#FF000000"/>
+                <TextBlock Grid.Column="0" Grid.Row="8" Text="4" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}"/>
+                <TextBlock Grid.Column="2" Grid.Row="8" Text="BEACONSFIELD UPPER-A" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
+                <TextBox Grid.Column="4" Grid.Row="8" x:Name="H4" Text="0" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                <TextBlock Grid.Column="6" Grid.Row="8" Text="SCORESBY-A" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
+                <TextBox Grid.Column="8" Grid.Row="8" x:Name="A4" Text="3" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                <Rectangle Grid.Row="9" Grid.ColumnSpan="{Binding ColumnDefinitions.Count, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Fill="#FF000000"/>
+                <TextBlock Grid.Column="0" Grid.Row="10" Text="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}"/>
+                <TextBlock Grid.Column="2" Grid.Row="10" Text="BELGRAVE-A" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
+                <TextBox Grid.Column="4" Grid.Row="10" x:Name="H5" Text="4" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                <TextBlock Grid.Column="6" Grid.Row="10" Text="MITCHAM-A" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
+                <TextBox Grid.Column="8" Grid.Row="10" x:Name="A5" Text="1" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                <Rectangle Grid.Row="11" Grid.ColumnSpan="{Binding ColumnDefinitions.Count, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Fill="#FF000000"/>
+                <TextBlock Grid.Column="0" Grid.Row="12" Text="6" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}"/>
+                <TextBlock Grid.Column="2" Grid.Row="12" Text="LILYDALE-A" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
+                <TextBox Grid.Column="4" Grid.Row="12" x:Name="H6" Text="1" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                <TextBlock Grid.Column="6" Grid.Row="12" Text="RINGWOOD-A" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
+                <TextBox Grid.Column="8" Grid.Row="12" x:Name="A6" Text="4" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                <Rectangle Grid.Row="13" Grid.ColumnSpan="{Binding ColumnDefinitions.Count, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Fill="#FF000000"/>
+                <TextBlock Grid.Column="0" Grid.Row="14" Text="7" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}"/>
+                <TextBlock Grid.Column="2" Grid.Row="14" Text="MOUNT EVELYN-A" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
+                <TextBox Grid.Column="4" Grid.Row="14" x:Name="H7" Text="" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                <TextBlock Grid.Column="6" Grid.Row="14" Text="WONGA PARK-A" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource ResultTeamFontSize}"/>
+                <TextBox Grid.Column="8" Grid.Row="14" x:Name="A7" Text="" TextWrapping="Wrap" Padding="20,0,0,0" VerticalContentAlignment="Center" FontSize="{DynamicResource StandardFontSize}" BorderBrush="{x:Null}" Background="{x:Null}"/>
             </Grid>
+            <Rectangle Grid.Column="1" Grid.Row="5" Stroke="Black"/>
         </Grid>
     </Grid>
 </Page>

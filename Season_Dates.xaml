@@ -1,0 +1,160 @@
+﻿<Page x:Class="EDSLPrototype.Season_Dates"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EDSLPrototype"
+      mc:Ignorable="d" 
+      d:DesignHeight="940" d:DesignWidth="1120"
+      Title="Season">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Rectangle Grid.Row="0" Fill="#FFD5D5D5"/>
+        <TextBlock Grid.Row="0" Text="Season Draw" TextWrapping="Wrap" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="840"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="auto" MaxHeight="360"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <ComboBox x:Name="SeasonSeasonSelect" Padding="20,0,0,0" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Width="660" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" IsEditable="True" SelectedIndex="0">
+                <ComboBoxItem Content="EDSL 2020-21" />
+                <ComboBoxItem Content="EDSL 2021-22" />
+            </ComboBox>
+            <TextBlock Grid.Column="1" Grid.Row="1" Text="Pick or enter season..." IsHitTestVisible="False" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="#FF7F7F7F">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Hidden"/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=SeasonSeasonSelect,Path=SelectedItem}" Value="{x:Null}"/>
+                                    <Condition Binding="{Binding ElementName=SeasonSeasonSelect,Path=Text}" Value=""/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <Button Content="Save" Grid.Column="1" HorizontalAlignment="Right" Width="160" Grid.Row="1" Style="{DynamicResource Button}"/>
+            <TextBlock Text="Start Date" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" HorizontalAlignment="Left"/>
+            <TextBox Text="08/11/20" Padding="20,0,0,0" TextWrapping="Wrap" Grid.Column="1" Margin="0,0,430,0" HorizontalAlignment="Right" Width="280" Grid.Row="3" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" BorderBrush="Black" />
+            <Rectangle Grid.Column="1" Grid.Row="3" Fill="Black" Width="1" HorizontalAlignment="Center" d:IsHidden="True"/>
+            <TextBlock Text="No. Rounds" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" HorizontalAlignment="Left" Margin="430,0,0,0" />
+            <TextBox Text="16" Padding="20,0,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Right" Width="280" Grid.Row="3" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" BorderBrush="Black" />
+            <Button Content="Dates" Padding="20,0,0,0" HorizontalContentAlignment="Left" Grid.Column="1" Grid.Row="5" FontSize="{DynamicResource StandardFontSize}" BorderBrush="Black" Background="White" HorizontalAlignment="Right" Width="840" Click="Button_Click"/>
+            <ScrollViewer Grid.Column="1" Grid.Row="6" VerticalScrollBarVisibility="Visible">
+                <Grid ScrollViewer.CanContentScroll="False">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="1" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="1" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="60" />
+                    </Grid.RowDefinitions>
+                    <Rectangle Grid.Column="1" Grid.RowSpan="{Binding RowDefinitions.Count, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Fill="#FF000000"/>
+                    <Rectangle Grid.Column="3" Grid.RowSpan="{Binding RowDefinitions.Count, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Fill="#FF000000"/>
+                    <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" Text="1"/>
+                    <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" Text="08/11/20"/>
+                    <Button Grid.Column="4" Grid.Row="0" Style="{StaticResource Button}" Content="X"/>
+                    <Rectangle Grid.Row="1" Grid.ColumnSpan="5" Fill="#FF000000"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" Text="2"/>
+                    <TextBlock Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" Text="15/11/20"/>
+                    <Button Grid.Column="4" Grid.Row="2" Style="{StaticResource Button}" Content="X"/>
+                    <Rectangle Grid.Row="3" Grid.ColumnSpan="5" Fill="#FF000000"/>
+                    <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" Text="3"/>
+                    <TextBlock Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" Text="22/11/20"/>
+                    <Button Grid.Column="4" Grid.Row="4" Style="{StaticResource Button}" Content="X"/>
+                    <Rectangle Grid.Row="5" Grid.ColumnSpan="5" Fill="#FF000000"/>
+                    <TextBlock Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" Text="4"/>
+                    <TextBlock Grid.Column="2" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" Text="29/11/20"/>
+                    <Button Grid.Column="4" Grid.Row="6" Style="{StaticResource Button}" Content="X"/>
+                    <Rectangle Grid.Row="7" Grid.ColumnSpan="5" Fill="#FF000000"/>
+                    <TextBlock Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" Text="5"/>
+                    <TextBlock Grid.Column="2" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" Text="06/12/20"/>
+                    <Button Grid.Column="4" Grid.Row="8" Style="{StaticResource Button}" Content="X"/>
+                    <Rectangle Grid.Row="9" Grid.ColumnSpan="5" Fill="#FF000000"/>
+                    <TextBlock Grid.Column="0" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" Text="6"/>
+                    <TextBlock Grid.Column="2" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" Text="13/12/20"/>
+                    <Button Grid.Column="4" Grid.Row="10" Style="{StaticResource Button}" Content="X"/>
+                    <Rectangle Grid.Row="11" Grid.ColumnSpan="5" Fill="#FF000000"/>
+                    <TextBlock Grid.Column="0" Grid.Row="12" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" Text="7"/>
+                    <TextBlock Grid.Column="2" Grid.Row="12" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" Text="20/12/20"/>
+                    <Button Grid.Column="4" Grid.Row="12" Style="{StaticResource Button}" Content="X"/>
+                </Grid>
+            </ScrollViewer>
+            <Rectangle Grid.Column="1" Grid.Row="8" Fill="Black"/>
+            <ComboBox x:Name="SeasonDivisionSelect" Padding="20,0,0,0" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Left" Width="660" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" IsEnabled="False">
+                <ComboBoxItem Content="A" />
+                <ComboBoxItem Content="B" />
+                <ComboBoxItem Content="C" />
+            </ComboBox>
+            <TextBlock Grid.Column="1" Grid.Row="10" Text="Pick division..." IsHitTestVisible="False" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="#FF7F7F7F">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Hidden"/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=SeasonDivisionSelect,Path=SelectedItem}" Value="{x:Null}"/>
+                                    <Condition Binding="{Binding ElementName=SeasonDivisionSelect,Path=Text}" Value=""/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <Button Content="Create Draw" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Right" Width="160">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource Button}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=SeasonDivisionSelect,Path=SelectedItem}" Value="{x:Null}"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Rectangle Grid.Column="1" Grid.Row="6" Stroke="Black" />
+        </Grid>
+    </Grid>
+</Page>

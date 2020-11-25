@@ -21,24 +21,46 @@ namespace EDSLPrototype
     public partial class MainWindow : Window
     {
 
-        private Page seasonPage;
-        private Page resultPage;
+        public Page seasonDatesPage;
+        public Page seasonPage;
+        public Page resultPrePage;
+        public Page resultPage;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            ClickSeason(null, null);
         }
 
-        private void ClickSeason(object sender, RoutedEventArgs e)
+        public void ClickSeason(object sender, RoutedEventArgs e)
         {
             if (seasonPage == null)
             {
-                seasonPage = new Season();
+                seasonPage = new Season(this);
             }
             Main.Content = seasonPage;
         }
 
-        private void ClickResult(object sender, RoutedEventArgs e)
+        public void ClickResult(object sender, RoutedEventArgs e)
+        {
+            if (resultPrePage == null)
+            {
+                resultPrePage = new Result_PreSelect(this);
+            }
+            Main.Content = resultPrePage;
+        }
+
+        public void SelectedDates()
+        {
+            if (seasonDatesPage == null)
+            {
+                seasonDatesPage = new Season_Dates(this);
+            }
+            Main.Content = seasonDatesPage;
+        }
+
+        public void SelectedResults()
         {
             if (resultPage == null)
             {

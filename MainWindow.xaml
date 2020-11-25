@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EDSLPrototype"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1000" Width="1440">
+        Title="EDSL System" Height="1000" Width="1440">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="320" />

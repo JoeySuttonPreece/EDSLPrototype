@@ -1,0 +1,156 @@
+﻿<Page x:Class="EDSLPrototype.Result_PreSelect"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EDSLPrototype"
+      mc:Ignorable="d" 
+      d:DesignHeight="940" d:DesignWidth="1120"
+      Title="Result">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Rectangle Grid.Row="0" Fill="#FFD5D5D5"/>
+        <TextBlock Grid.Row="0" Text="Results" TextWrapping="Wrap" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center" FontSize="{DynamicResource StandardFontSize}" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="840"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ComboBox x:Name="ResultSeasonSelect" Grid.Column="0" Padding="20,0,0,0" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" IsEditable="True" SelectionChanged="ResultSeasonSelect_SelectionChanged">
+                    <ComboBoxItem Content="EDSL 2020-21" />
+                    <ComboBoxItem Content="EDSL 2021-22" />
+                </ComboBox>
+                <TextBlock Grid.Column="0" Text="Season" IsHitTestVisible="False" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="#FF7F7F7F">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Hidden"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding ElementName=ResultSeasonSelect,Path=SelectedItem}" Value="{x:Null}"/>
+                                        <Condition Binding="{Binding ElementName=ResultSeasonSelect,Path=Text}" Value=""/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <ComboBox x:Name="ResultDivisionSelect" Grid.Column="2" Padding="20,0,0,0" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" IsEditable="True" SelectionChanged="ResultDivisionSelect_SelectionChanged">
+                    <ComboBoxItem Content="A" />
+                    <ComboBoxItem Content="B" />
+                    <ComboBoxItem Content="C" />
+                </ComboBox>
+                <TextBlock Grid.Column="2" Text="Division" IsHitTestVisible="False" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="#FF7F7F7F">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Hidden"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding ElementName=ResultDivisionSelect,Path=SelectedItem}" Value="{x:Null}"/>
+                                        <Condition Binding="{Binding ElementName=ResultDivisionSelect,Path=Text}" Value=""/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <ComboBox x:Name="ResultRoundSelect" Grid.Column="4" Padding="20,0,0,0" FontSize="{DynamicResource StandardFontSize}" VerticalContentAlignment="Center" IsEditable="True" SelectionChanged="ResultRoundSelect_SelectionChanged">
+                    <ComboBoxItem Content="1" />
+                    <ComboBoxItem Content="2" />
+                    <ComboBoxItem Content="3" />
+                    <ComboBoxItem Content="4" />
+                    <ComboBoxItem Content="5" />
+                    <ComboBoxItem Content="6" />
+                    <ComboBoxItem Content="7" />
+                    <ComboBoxItem Content="8" />
+                    <ComboBoxItem Content="9" />
+                    <ComboBoxItem Content="10" />
+                    <ComboBoxItem Content="11" />
+                    <ComboBoxItem Content="12" />
+                    <ComboBoxItem Content="13" />
+                    <ComboBoxItem Content="14" />
+                    <ComboBoxItem Content="15" />
+                    <ComboBoxItem Content="16" />
+                </ComboBox>
+                <TextBlock Grid.Column="4" Text="Round" IsHitTestVisible="False" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="#FF7F7F7F">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Hidden"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding ElementName=ResultRoundSelect,Path=SelectedItem}" Value="{x:Null}"/>
+                                        <Condition Binding="{Binding ElementName=ResultRoundSelect,Path=Text}" Value=""/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+            <Grid Grid.Column="1" Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Text="Date" TextWrapping="Wrap" VerticalContentAlignment="Center" Padding="20,0,0,0" BorderBrush="Black" FontSize="{DynamicResource StandardFontSize}" Foreground="#FF7F7F7F" IsEnabled="False"/>
+                <Button Grid.Column="2" Content="Save" Style="{DynamicResource Button}" IsEnabled="False"/>
+                <Button Grid.Column="4" Content="Create Ladder" Style="{DynamicResource Button}" IsEnabled="False"/>
+                <Button Grid.Column="6" Content="View Ladder" Style="{DynamicResource Button}" IsEnabled="False"/>
+            </Grid>
+            <Rectangle Grid.Column="1" Grid.Row="5" Stroke="Black"/>
+            <Grid Grid.Column="1" Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="1"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="1"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="1"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+                <Rectangle Grid.Column="1" Grid.RowSpan="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=RowDefinitions.Count, Mode=OneWay}" Fill="#FF000000"/>
+                <Rectangle Grid.Column="3" Grid.RowSpan="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=RowDefinitions.Count, Mode=OneWay}" Fill="#FF000000"/>
+                <Rectangle Grid.Column="5" Grid.RowSpan="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=RowDefinitions.Count, Mode=OneWay}" Fill="#FF000000"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Home Team" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}" Foreground="#FF7C7C7C"/>
+                <TextBlock Grid.Column="2" Grid.Row="0" Text="Home Goals" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}" Foreground="#FF7C7C7C"/>
+                <TextBlock Grid.Column="4" Grid.Row="0" Text="Away Team" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}" Foreground="#FF7C7C7C"/>
+                <TextBlock Grid.Column="6" Grid.Row="0" Text="Away Goals" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalAlignment="Left" FontSize="{DynamicResource StandardFontSize}" Foreground="#FF7C7C7C"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
